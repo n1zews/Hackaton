@@ -1,0 +1,254 @@
+swagger: "2.0"
+info:
+  description: main description
+  version: "1.0.0"
+  title: main title
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /v1
+
+# Paths supported by the server application
+paths:
+  /users:
+    get:
+      operationId: user.read_all
+      tags:
+        - User
+      summary: Read user
+      description: Read user
+      parameters:
+        - name: token
+          in: query
+          description: token
+          type: string
+          required: true
+      responses:
+        200:
+          description: Successful
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: integer
+                  description: id
+                login:
+                  type: string
+                  description: login
+                name:
+                  type: string
+                  description: name
+        400:
+          description: Bad Request
+        401:
+          description: not authorized
+        500:
+          description: Server Error
+
+  /token/{user_id}:
+    get:
+      operationId: user.token
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          description: id
+          type: integer
+          required: true
+        - name: password
+          in: query
+          description: password
+          type: string
+          required: true
+      responses:
+        200:
+          description: god
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+              login:
+                type: string
+                description: login
+              token:
+                type: string
+                description: token
+        400:
+          description: Bad Request
+        401:
+          description: not authorized
+        404:
+          description: Not Found
+        500:
+          description: Server Error
+
+  /user:
+    post:
+      operationId: user.create
+      tags:
+        - User
+      consumes:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              login:
+                type: string
+              name:
+                type: string
+              token:
+                type: string
+      responses:
+        201:
+          description: god
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              login:
+                type: string
+                description: login
+              name:
+                type: string
+                description: mane
+              token:
+                type: string
+                description: token
+        400:
+          description: Bad Request
+        401:
+          description: not authorized
+        404:
+          description: Not Found
+        500:   
+          description: Server Error
+
+  /user/{user_id}:
+    get:
+      operationId: user.read_one
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          type: integer
+          required: true
+        - name: token
+          in: query
+          type: string
+          required: true
+      responses:
+        200:
+          description: god
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              login:
+                type: string
+                description: login
+              name:
+                type: string
+                description: name
+        400:
+          description: Bad Request
+        401:
+          description: not authorized
+        404:
+          description: Not Found
+        500:
+          description: Server Error
+
+    put:
+      operationId: user.update
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          type: integer
+          required: true
+        - name: token
+          in: query
+          type: string
+          required: true
+        - name: user
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              login:
+                type: string
+                description: login
+              name:
+                type: string
+                description: name
+      responses:
+        200:
+          description: god
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: id
+              name:
+                type: string
+                description: name
+              login:
+                type: string
+                description: login
+        401:
+          description: not authorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+        500:
+          description: Server Error
+
+    delete:
+      operationId: user.delete
+      tags:
+        - User
+      parameters:
+        - name: user_id
+          in: path
+          type: integer
+          required: true
+        - name: token
+          in: query
+          type: string
+          required: true
+      responses:
+        401:
+          description: not authorized
+        403:
+          description: Forbidden
+        404:
+          description: Not found
+        500:
+          description: Server Error
